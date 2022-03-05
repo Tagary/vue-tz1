@@ -32,28 +32,9 @@
         </div>
       </section>
       <section class="right-colum">
-        <nav class="nav-bar">
-          <div class="nav-bar__input">
-            <input type="text" />
-          </div>
-          <div class="nav-bar__info">
-            <div class="data" @load="loadTime">{{ daysnow }}</div>
-            <div class="alert">
-              <img src="../public/images/alert.svg" alt="" />
-            </div>
-            <div class="user-name">
-              Cristo Parino
-              <img
-                class="user-ava_main"
-                src="../public/images/images.jpg"
-                alt=""
-              />
-              <img src="../public/images/arrowdown.svg" alt="" />
-            </div>
-          </div>
-        </nav>
+            <navigation/>
         <div class="main">
-          <list-people :sortProduct="sortProduct" @sendData="showData" />
+          <list-people />
           <div class="main-stat">
             <p class="main-stat_select">Selected</p>
             <h1>Design Team</h1>
@@ -67,28 +48,42 @@
                   <span>74%</span>
                 </span>
               </div>
-              <h2>Projects</h2>
-              <div>
-                <div>
-                  <div>
+              <h2 class="stats-info_article">Projects</h2>
+              <div class="stats-info">
+                <div class="stats-info_container">
+                  <div class="stats-info_about stats-info_total">
                     TOTAL
-                    <span>148</span>
+                    <span class="stats-info_numbers">148</span>
                   </div>
-                  <div>
+                  <div class="stats-info_about stats-info_complited">
                     COMPLITED
-                    <span>56</span>
+                    <span class="stats-info_numbers">56</span>
                   </div>
                 </div>
-                <div>
-                  <div>
+                <div class="stats-info_container">
+                  <div class="stats-info_about stats-info_inprogress">
                     IN PROGRESS
-                    <span>76</span>
+                    <span class="stats-info_numbers">76</span>
                   </div>
-                  <div>
+                  <div class="stats-info_about stats-info_waiting">
                     WAITING
-                    <span> 16 </span>
+                    <span class="stats-info_numbers"> 16 </span>
                   </div>
                 </div>
+              </div>
+              <div class="declar">
+                  <div class="declar-container">
+                      <div class="declar-img"><img src="../public/images/message.svg" alt=""></div>
+                      <div>
+                          <div class="declat-txt">
+                              Declaration center
+
+                          </div>
+                                                        <div class="declar-mess">
+                                  Internal messages
+                              </div>
+                      </div>
+                  </div>
               </div>
             </div>
           </div>
@@ -99,10 +94,12 @@
 </template>
 <script>
 import ListPeople from "./components/ListPeople.vue";
+import Navigation from './components/Navigation.vue';
 
 export default {
   components: {
     ListPeople,
+    Navigation,
   },
 
   data() {
@@ -112,56 +109,16 @@ export default {
       daysnow: "",
     };
   },
-  computed: {
-    sortProduct() {
-      if (this.sort.length) {
-        return this.sort;
-      } else {
-        return this.datas;
-      }
-    },
-  },
+
 
   methods: {
-    loadTime() {
-      let now = new Date();
-      now.setDate(now.getDate());
 
-      let dayNum = "";
-      if (now.getDate() < 10) {
-        dayNum = "0";
-      }
-      dayNum += now.getDate();
-
-      let monthNum = "";
-      if (now.getMonth() + 1 < 10) {
-        monthNum = "0";
-      }
-      monthNum += now.getMonth() + 1;
-      this.daysnow = dayNum + "." + monthNum + "." + now.getFullYear();
-    },
     
     showData(data) {
       console.log(data);
     },
   },
-  created() {
-      let now = new Date();
-      now.setDate(now.getDate());
-
-      let dayNum = "";
-      if (now.getDate() < 10) {
-        dayNum = "0";
-      }
-      dayNum += now.getDate();
-
-      let monthNum = "";
-      if (now.getMonth() + 1 < 10) {
-        monthNum = "0";
-      }
-      monthNum += now.getMonth() + 1;
-      this.daysnow = dayNum + "." + monthNum + "." + now.getFullYear();
-  }
+ 
 };
 </script>
 <style >
@@ -229,9 +186,7 @@ export default {
 }
 
 .data {
-  width: 100px;
-  height: 100px;
-  background: #fff;
+    font-weight: bold;;
 }
 
 .menu {
@@ -262,42 +217,6 @@ export default {
   justify-content: center;
 }
 
-.nav-bar {
-  border-bottom: 1px solid gray;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  padding: 20px 0;
-}
-
-.nav-bar__input {
-  max-width: 300px;
-  width: 100%;
-}
-
-.nav-bar__input input {
-  width: 100%;
-}
-
-.nav-bar__info {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 50%;
-}
-
-.user-name {
-  display: flex;
-  align-items: center;
-}
-
-.user-ava_main {
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  margin-left: 5px;
-}
-
 .main {
   display: flex;
 }
@@ -310,6 +229,7 @@ export default {
   width: 20%;
   padding-top: 20px;
   padding-right: 20px;
+
 }
 .container-stats {
   margin-top: 70px;
@@ -318,6 +238,8 @@ export default {
   text-align: right;
   padding-right: 20px;
 }
+
+
 
 .stats-time {
   position: relative;
@@ -341,5 +263,85 @@ export default {
   margin: 20px auto;
   justify-content: center;
   background: rgb(245, 245, 245);
+}
+
+.stats-info {
+      border-bottom: 2px solid gray;
+      padding-bottom: 100px;
+}
+
+
+.stats-info_article {
+    margin-bottom: 20px;
+}
+
+.stats-info_container  {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+
+}
+.stats-info_container div {
+     display: flex;
+    flex-direction: column;
+    width: 100px;
+    text-align: center;
+    background: rgb(192, 190, 190);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.stats-info_numbers {
+    margin-top: 10px;
+    font-size: 30px;
+    text-align: center;
+}
+.stats-info_about {
+    font-size: 12px;
+    text-align: start;
+}
+
+.stats-info_total span {
+ border-left: 2px solid blue;
+}
+.stats-info_complited span {
+ border-left: 2px solid green;
+}
+.stats-info_inprogress span {
+ border-left: 2px solid aqua;
+}
+.stats-info_waiting span {
+ border-left: 2px solid yellow;
+}
+
+.declar {
+    margin-top: 20px;
+    background: rgb(138, 137, 137);
+    border-radius: 20px;
+    height: 60px;
+        display: flex;
+    align-items: center;
+}
+
+.declar-container {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+}
+.declar-img {
+    margin-right:20px;
+}
+
+.declat-txt {
+    color: darkgray;
+}
+.declat-txt span {
+ color: #000;
+ font-weight: bold;
+}
+
+.declar-mess {
+    font-weight: bold;
 }
 </style>
